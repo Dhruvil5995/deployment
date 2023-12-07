@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Brain Tumor Detection</title>
+    <style>
+        /* Styling for the page */
+        body {
+            font-family: Arial, sans-serif; /* Set the font family */
+            background-color: #87cefa; /* Set the background color to Light Sky Blue */
+            margin: 0; /* Remove margin */
+            padding: 0; /* Remove padding */
+        }
+
+        /* Styling for the main heading */
+        h1 {
+            text-align: center; /* Center align the heading */
+            color: #333; /* Set the text color to Dark Gray */
+            margin-top: 50px; /* Add top margin of 50px */
+        }
+
+        /* Styling for the form */
+        form {
+            margin-top: 30px; /* Add top margin of 30px to the form */
+            text-align: center; /* Center align the form content */
+        }
+
+        /* Styling for the file input */
+        input[type="file"] {
+            margin-right: 10px; /* Add right margin of 10px to the file input */
+            padding: 8px; /* Add padding of 8px to the file input */
+            border-radius: 4px; /* Add border radius of 4px to the file input */
+            border: 1px solid #ccc; /* Add 1px solid border with color Light Gray to the file input */
+        }
+
+        /* Styling for the submit button */
+        input[type="submit"] {
+            background-color: #4CAF50; /* Set the background color to Green */
+            color: white; /* Set the text color to White */
+            border: none; /* Remove border */
+            padding: 10px 20px; /* Add padding of 10px top and bottom, 20px left and right */
+            text-align: center; /* Center align the button text */
+            text-decoration: none; /* Remove text decoration */
+            display: inline-block; /* Set display property to inline-block */
+            font-size: 16px; /* Set the font size to 16px */
+            margin-top: 10px; /* Add top margin of 10px to the button */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            border-radius: 4px; /* Add border radius of 4px to the button */
+        }
+
+        /* Styling for the sub-heading */
+        h2 {
+            margin-top: 50px; /* Add top margin of 50px to the sub-heading */
+            color: #333; /* Set the text color to Dark Gray */
+            text-align: center; /* Center align the sub-heading */
+        }
+
+        /* Styling for the result message */
+        p {
+            color: #555; /* Set the text color to Gray */
+            text-align: center; /* Center align the paragraph */
+            font-size: 18px; /* Set the font size to 18px */
+        }
+
+        /* Styling for the result message when a brain tumor is detected */
+        .result-message.detected {
+            color: #e74c3c; /* Set the text color to Red for the detected result message */
+        }
+
+        /* Styling for the result message when no brain tumor is detected */
+        .result-message.not-detected {
+            color: #006400; /* Set the text color to Dark Green for the not-detected result message */
+        }
+
+        /* Styling for the uploaded image */
+        .uploaded-image {
+            display: block; /* Set display property to block */
+            margin: 30px auto; /*
+            max-width: 500px; /* Set the maximum width of the uploaded image to 500px */
+            border: 5px solid #333; /* Add a 5px solid border with color Dark Gray to the uploaded image */
+            border-radius: 8px; /* Add a border radius of 8px to the uploaded image */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Add a box shadow to the uploaded image */
+        }
+    </style>
+</head>
+<body>
+    <!-- Main heading -->
+    <h1>Brain Tumor Detection</h1>
+
+    <!-- Form for image upload -->
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="image"> <!-- File input for selecting an image file -->
+        <input type="submit" value="Predict"> <!-- Submit button to trigger the prediction -->
+    </form>
+
+    <!-- If there is a prediction result -->
+    {% if prediction %}
+        <!-- Sub-heading for the prediction -->
+        <h2>Prediction:</h2>
+        <!-- Result message with appropriate styling based on the prediction value -->
+        <p class="result-message {% if prediction == "Detect brain tumor" %}detected{% else %}not-detected{% endif %}">
+            {{ prediction }}
+        </p>
+    {% endif %}
+
+    <!-- If there is an uploaded image -->
+    {% if image %}
+        <!-- Sub-heading for the uploaded image -->
+        <h2>Uploaded Image:</h2>
+        <!-- Display the uploaded image -->
+        <img class="uploaded-image" src="{{ image }}" alt="Uploaded Image">
+    {% endif %}
+</body>
+</html>
